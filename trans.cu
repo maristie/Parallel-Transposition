@@ -1,8 +1,8 @@
 #include <cstdio>
 
 #define BLOCK_SIZE	16
-#define N			1024
-#define ELEMENT_NUM 1048576             /* 1048576 = 1024 * 1024, the capacity of the matrix */
+#define N		1024
+#define ELEMENT_NUM	1048576             /* 1048576 = 1024 * 1024, the capacity of the matrix */
 
 #include "tools/random.h"
 #include "tools/test.h"
