@@ -1,0 +1,9 @@
+CC = mpicc
+
+trans_row : trans_row.c
+	$(CC) -O3 -o $@ $<
+
+.PHONY : run
+
+run : ./trans_row
+	mpirun -np 16 ./trans_row
