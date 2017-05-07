@@ -53,17 +53,22 @@ int main (int argc, char *argv[]) {
 	}
 	MPI_Barrier(MPI_COMM_WORLD);
 
-	int src_id = get_shmid('R'), des_id = get_shmid('W');printf("%d %d\n",src_id,des_id);
-	int *src_mat = (int*)shmat(src_id, NULL, 0), *des_mat = (int*)shmat(des_id, NULL, 0);
+	int src_id = get_shmid('R'), des_id = get_shmid('W');
+	int *src_mat = (int*)shmat(src_id, NULL, 0),
+	    *des_mat = (int*)shmat(des_id, NULL, 0);
 
 	double r0 = MPI_Wtime();
 	int row = MAT_SIZE / PROC_NUM, col = MAT_SIZE;
 	for (int i = 0; i < row; i++)
 		for (int j = 0; j < col; j++)
-			MPI_Send(src_mat + col * (i + rank * row) + j, 1, MPI_INT, j / row, col * (i + rank * row) + j, MPI_COMM_WORLD);
+			MPI_Send(src_mat + col * (i + rank * row) + j, 1, MPI_INT,
+				 j / row, col * (i + rank * row) + j,
+				 MPI_COMM_WORLD);
 	for (int i = 0; i < row; i++)
 		for (int j = 0; j < col; j++)
-			MPI_Recv(des_mat + col * (i + rank * row) + j, 1, MPI_INT, j / row, j * col + rank * row + i, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+			MPI_Recv(des_mat + col * (i + rank * row) + j, 1, MPI_INT,
+				 j / row, j * col + rank * row + i,
+				 MPI_COMM_WORLD, MPI_STATUS_IGNORE);
 	double r1 = MPI_Wtime();
 	if (rank == 0)
 		printf("MPI_Alltoall time (sec) %lf.\n", r1 - r0);
