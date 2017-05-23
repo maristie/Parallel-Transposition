@@ -3,7 +3,7 @@ MPICH
 
 ## Commands
 ```bash
-mpicc -o trans trans.c	// add -std=c99 for older version of gcc
+mpicc -o trans trans.c	# add -std=c99 for older version of gcc
 mpirun -np 16 ./trans
 ```
 
