@@ -9,7 +9,7 @@
 #include "tools/timing.h"
 
 __global__ void trans(int *addr_src, int *addr_des) {
-	__shared__ int cache[BLOCK_SIZE][BLOCK_SIZE];   /* Allocate shared memory as cache */
+	__shared__ int cache[BLOCK_SIZE][BLOCK_SIZE + 1];   /* Allocate shared memory as cache */
 	int col = blockIdx.x * BLOCK_SIZE + threadIdx.x;
 	int row = blockIdx.y * BLOCK_SIZE + threadIdx.y;
 
